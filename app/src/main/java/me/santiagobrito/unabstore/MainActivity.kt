@@ -15,6 +15,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.google.firebase.Firebase
+import com.google.firebase.auth.auth
 import me.santiagobrito.unabstore.ui.theme.UnabStoreTheme
 
 class MainActivity : ComponentActivity() {
@@ -23,20 +25,45 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             val navController = rememberNavController()
-            val starDestination = "login"
+            var starDestination = "login"
+
+            val auth = Firebase.auth
+            val currentUser = auth.currentUser
+
+            if (currentUser != null){
+                starDestination = "home"
+            }else{
+                starDestination = "login"
+            }
             NavHost(
                 navController = navController,
                 startDestination = starDestination,
                 modifier = Modifier.fillMaxSize()
             ) {
                 composable(route = "login") {
-                    LoginScreen()
+                    LoginScreen(onClickRegistrer = {
+                        navController.navigate("register")
+                    }, onSuccessfulLogin = {
+                        navController.navigate("home"){
+                            popUpTo("login"){inclusive = true}
+                        }
+                    })
                 }
                 composable(route = "register") {
-                    RegisterScreen()
+                    RegisterScreen(onClickBack = {
+                        navController.popBackStack()
+                    }, onSuccessfulRegiter = {
+                        navController.navigate("home"){
+                            popUpTo(0)
+                        }
+                    })
                 }
                 composable(route = "home") {
-                    HomeScreen()
+                    HomeScreen(onClickLogout = {
+                        navController.navigate("login"){
+                            popUpTo(0)
+                        }
+                    })
                 }
             }
         }

@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "535032442945",
+    "project_id": "loginunabstore",
+    "storage_bucket": "loginunabstore.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:535032442945:android:95155d93484882bec7d6c0",
+        "android_client_info": {
+          "package_name": "me.santiagobrito.unabstore"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA4tgBa43nyEySH_ADyYwYdLRQJiLGzXss"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
